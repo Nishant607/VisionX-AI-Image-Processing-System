@@ -1,0 +1,98 @@
+/* Required Animations */
+
+.fadeSlideUp {
+  animation: fadeSlideUpAnim 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+  filter: blur(5px);
+}
+
+@keyframes fadeSlideUpAnim {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+    filter: blur(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.pulse-glow {
+  animation: pulseGlowAnim 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulseGlowAnim {
+  0%, 100% { 
+    opacity: 0.8;
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+  }
+  50% { 
+    opacity: 1;
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.8);
+  }
+}
+
+.shimmer {
+  background: rgba(255, 255, 255, 0.03);
+  background-image: linear-gradient(
+    110deg,
+    rgba(255, 255, 255, 0.0) 0%,
+    rgba(255, 255, 255, 0.1) 20%,
+    rgba(255, 255, 255, 0.0) 40%,
+    rgba(255, 255, 255, 0.0) 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 800px 104px; 
+  display: inline-block;
+  position: relative; 
+  animation-duration: 2s;
+  animation-fill-mode: forwards; 
+  animation-iteration-count: infinite;
+  animation-name: placeholderShimmer;
+  animation-timing-function: linear;
+  border-radius: 8px;
+}
+
+@keyframes placeholderShimmer {
+  0% { background-position: -800px 0; }
+  100% { background-position: 800px 0; } 
+}
+
+.scan-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(to right, transparent, var(--accent-cyan), transparent);
+  box-shadow: 0 0 15px var(--accent-cyan), 0 0 30px var(--accent-cyan);
+  animation: scanLineAnim 2.5s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  z-index: 10;
+  opacity: 0.9;
+}
+
+@keyframes scanLineAnim {
+  0% { top: -10%; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: 110%; opacity: 0; }
+}
+
+.processing-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(5, 5, 15, 0.7);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+  border-radius: inherit;
+  border: 1px solid rgba(0,240,255,0.2);
+  box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
+}

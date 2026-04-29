@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: visionx_backend
+    volumes:
+      - ./backend/media:/app/media
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    command: >
+      sh -c "python manage.py makemigrations processor &&
+             python manage.py migrate &&
+             gunicorn visionx_project.wsgi:application --bind 0.0.0.0:8000 --workers 4"
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: visionx_frontend
+    ports:
+      - "5173:80"
+
+  nginx:
+    image: nginx:alpine
+    container_name: visionx_nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./backend/media:/media:ro
+    depends_on:
+      - backend
+      - frontend
